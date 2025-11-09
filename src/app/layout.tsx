@@ -12,7 +12,6 @@ const darker = Darker_Grotesque({
 
 
 export const metadata: Metadata = {
-  manifest: "/manifest.json",
   title: "DoeCerto",
   description: "App de Doação",
 }
