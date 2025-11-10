@@ -4,7 +4,7 @@ import Link from "next/link"; // Importe Link para ser consistente
 export default function Register() {
     return (
 
-        <div className="min-h-screen flex flex-col items-center justify-center bg-[#6B39A7] text-white font-sans px-6 py-12">
+        <div className="min-h-screen flex flex-col items-center justify-center bg-purple-700 text-white font-sans px-6 py-12">
             
             <div className="w-full max-w-xs flex flex-col items-center"> 
 
