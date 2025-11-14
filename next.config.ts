@@ -4,7 +4,7 @@ const nextConfig: NextConfig = {
   reactCompiler: true,
 
   // Gera arquivos estáticos (necessário pro Capacitor)
-  output: "export",
+  //output: "export",
 
   // Define a pasta onde o build será exportado
   distDir: "out",
