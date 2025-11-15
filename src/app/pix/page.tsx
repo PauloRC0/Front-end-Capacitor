@@ -66,7 +66,7 @@ export default function PixPage() {
     <div className="min-h-screen bg-white flex flex-col items-center px-6 py-10 text-[#3b1a66]">
 
       <h1 className="text-3xl font-bold mb-1 text-[#4A1D96]">Doação via PIX</h1>
-      <p className="text-base text-gray-500 mb-8 text-center">
+      <p className="text- text-gray-500 mb-8 text-center">
         Faça sua contribuição de forma rápida e segura 💜
       </p>
 

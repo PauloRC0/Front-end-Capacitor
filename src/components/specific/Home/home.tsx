@@ -5,6 +5,8 @@ import { useRef, useState } from "react";
 import { FiSearch, FiMenu, FiX } from "react-icons/fi";
 import { FaMapMarkerAlt } from "react-icons/fa";
 import { useRouter } from "next/navigation";
+import DonateModal from "@/components/specific/DonateModal";
+
 
 export default function HomePage() {
   const router = useRouter();
@@ -18,7 +20,7 @@ export default function HomePage() {
 
   const primary = "#6B21A8";
 
-  // ONGs atualizadas e ampliadas
+  // ONGs fixas (mockadas)
   const ongs = [
     {
       id: 1,
@@ -79,25 +81,31 @@ export default function HomePage() {
     "Idosos",
   ];
 
+  /* ----------------------- DOAÇÃO ---------------------- */
+
   function openDonateModal(ongId: number) {
     setSelectedOng(ongId);
     setIsModalOpen(true);
   }
 
-function goToDonateItems() {
-  if (!selectedOng) return;
+  function goToDonateItems() {
+    if (!selectedOng) return;
 
-  const ONG = ongs.find(o => o.id === selectedOng);
-  if (!ONG) return; // evita erro
+    const ong = ongs.find((o) => o.id === selectedOng);
+    if (!ong) return;
 
-  router.push(`/donation?ongId=${selectedOng}&ong=${encodeURIComponent(ONG.name)}`);
-}
+    router.push(
+      `/donation?ongId=${selectedOng}&ong=${encodeURIComponent(ong.name)}`
+    );
+  }
 
   function goToDonateMoney() {
     if (!selectedOng) return;
     setIsModalOpen(false);
     router.push(`/pix?id=${selectedOng}`);
   }
+
+  /* ----------------------- UI ---------------------- */
 
   return (
     <div className="min-h-screen bg-gray-50 text-gray-900">
@@ -109,7 +117,9 @@ function goToDonateItems() {
           </div>
           <div>
             <h1 className="text-lg font-semibold text-[#3b1a66]">DoeCerto</h1>
-            <p className="text-xs text-gray-500 -mt-0.5">Ajude quem precisa</p>
+            <p className="text-base text-gray-500 -mt-0.5">
+              Ajude quem precisa
+            </p>
           </div>
         </div>
 
@@ -117,6 +127,7 @@ function goToDonateItems() {
           <button className="p-2 rounded-md hover:bg-gray-100 active:scale-95 transition">
             <FiMenu size={20} />
           </button>
+
           <div className="w-9 h-9 rounded-full bg-gray-200 overflow-hidden">
             <img
               src="https://placehold.co/80x80/ddd/aaa.png"
@@ -135,7 +146,7 @@ function goToDonateItems() {
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Pesquise uma ONG, cidade ou causa"
-            className="w-full outline-none text-sm"
+            className="w-full outline-none text-base"
           />
           {query && (
             <button onClick={() => setQuery("")}>
@@ -145,7 +156,7 @@ function goToDonateItems() {
         </div>
       </div>
 
-      {/* Categories (chips com seleção roxa) */}
+      {/* Categories */}
       <div className="mt-4 px-5">
         <div className="flex gap-3 overflow-x-auto no-scrollbar py-2">
           {categories.map((c, i) => {
@@ -153,10 +164,8 @@ function goToDonateItems() {
             return (
               <button
                 key={i}
-                onClick={() =>
-                  setSelectedCategory(isSelected ? null : c)
-                }
-                className={`whitespace-nowrap px-4 py-2 rounded-full border text-sm shadow-sm active:scale-95 transition ${
+                onClick={() => setSelectedCategory(isSelected ? null : c)}
+                className={`whitespace-nowrap px-4 py-2 rounded-full border text-base shadow-sm active:scale-95 transition ${
                   isSelected
                     ? "border-purple-700 bg-purple-100 text-purple-800"
                     : "border-gray-200 bg-white text-gray-700"
@@ -180,10 +189,11 @@ function goToDonateItems() {
         <div className="flex gap-4 overflow-x-auto pb-3 no-scrollbar">
           {ongs.map((ong) => (
             <div
-  key={ong.id}
-  className="min-w-[260px] bg-white rounded-2xl shadow-lg overflow-hidden mr-2"
->
-  <div className="w-full h-[170px] bg-gray-200">
+              key={ong.id}
+              onClick={() => router.push(`/ong-public-profile/${ong.id}`)}
+              className="min-w-[220px] bg-white rounded-2xl shadow-md overflow-hidden active:scale-95 transition cursor-pointer"
+            >
+              <div className="w-full h-[170px] bg-gray-200">
                 <img
                   src={ong.img}
                   alt={ong.name}
@@ -196,13 +206,16 @@ function goToDonateItems() {
                   {ong.name}
                 </h3>
 
-                <div className="flex items-center gap-2 text-xs text-gray-500 mt-1">
+                <div className="flex items-center gap-2 text-base text-gray-500 mt-1">
                   <FaMapMarkerAlt size={12} />
                   <span>{ong.distance}</span>
                 </div>
 
                 <button
-                  onClick={() => openDonateModal(ong.id)}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    openDonateModal(ong.id);
+                  }}
                   className="mt-3 w-full bg-[#6B21A8] text-white py-1.5 rounded-lg text-sm font-semibold active:scale-95 transition"
                 >
                   Doar
@@ -213,96 +226,60 @@ function goToDonateItems() {
         </div>
       </section>
 
-      {/* Lista: Mais próximas */}
+      {/* Lista */}
       <section className="mt-6 px-5 mb-10">
-  <h2 className="text-xl font-semibold mb-4 text-gray-800">
-    Mais próximas de você
-  </h2>
+        <h2 className="text-xl font-semibold mb-4 text-gray-800">
+          Mais próximas de você
+        </h2>
 
-  <div className="space-y-4">
-    {ongs.map((ong) => (
-      <div
-  key={ong.id}
-  className="flex items-center gap-5 bg-white rounded-2xl shadow-lg p-5"
->
-  <div className="w-28 h-28 rounded-xl overflow-hidden bg-gray-200">
-
-          <img
-            src={ong.img}
-            alt={ong.name}
-            className="w-full h-full object-cover"
-          />
-        </div>
-
-        {/* TEXTO MAIOR E MAIS LIMPO */}
-        <div className="flex-1">
-          <h3 className="text-base font-semibold text-gray-900">
-            {ong.name}
-          </h3>
-
-          <p className="text-sm text-gray-500 mt-1">
-            Voluntários · {ong.distance}
-          </p>
-        </div>
-
-        {/* BOTÃO MAIOR */}
-        <button
-          onClick={() => openDonateModal(ong.id)}
-          className="bg-[#6B21A8] text-white px-4 py-2 rounded-lg text-sm font-semibold active:scale-95"
-        >
-          Doar
-        </button>
-      </div>
-    ))}
-  </div>
-</section>
-
-
-      {/* Modal */}
-      {isModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center">
-          <div
-            className="absolute inset-0 backdrop-blur-sm bg-black/30"
-            onClick={() => setIsModalOpen(false)}
-          />
-
-          <div className="relative bg-white rounded-2xl shadow-xl w-[92%] max-w-sm p-5 z-10">
-            <div className="flex flex-col items-center">
-              <div className="w-16 h-16 rounded-full bg-[#6B21A8] flex items-center justify-center text-white text-2xl shadow-lg">
-                ❤
+        <div className="space-y-4">
+          {ongs.map((ong) => (
+            <div
+              key={ong.id}
+              onClick={() => router.push(`/ong-public-profile/${ong.id}`)}
+              className="flex items-center gap-4 bg-white rounded-2xl shadow-md p-4 cursor-pointer active:scale-95 transition"
+            >
+              <div className="w-28 h-28 rounded-xl overflow-hidden bg-gray-200">
+                <img
+                  src={ong.img}
+                  alt={ong.name}
+                  className="w-full h-full object-cover"
+                />
               </div>
 
-              <h3 className="mt-4 text-lg font-semibold text-[#3b1a66]">
-                Como deseja doar?
-              </h3>
+              <div className="flex-1">
+                <h3 className="text-base font-semibold text-gray-900">
+                  {ong.name}
+                </h3>
 
-              <div className="mt-5 w-full flex flex-col gap-3">
-                <button
-                  onClick={goToDonateMoney}
-                  className="w-full py-3 rounded-xl text-white font-semibold bg-[#6B21A8] active:scale-95 transition"
-                >
-                  Doar dinheiro
-                </button>
-
-                <button
-                  onClick={goToDonateItems}
-                  className="w-full py-3 rounded-xl text-[#6B21A8] border border-[#6B21A8] bg-white font-semibold active:scale-95 transition"
-                >
-                  Doar itens
-                </button>
+                <p className="text-sm text-gray-500 mt-1">
+                  Voluntários · {ong.distance}
+                </p>
               </div>
 
               <button
-                onClick={() => setIsModalOpen(false)}
-                className="mt-4 text-sm text-gray-500 underline"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  openDonateModal(ong.id);
+                }}
+                className="bg-[#6B21A8] text-white px-4 py-2 rounded-lg text-sm font-semibold active:scale-95"
               >
-                Cancelar
+                Doar
               </button>
             </div>
-          </div>
+          ))}
         </div>
-      )}
+      </section>
+
+      {/* Modal */}
+      {isModalOpen && (
+  <DonateModal
+    onClose={() => setIsModalOpen(false)}
+    onDonateMoney={goToDonateMoney}
+    onDonateItems={goToDonateItems}
+  />
+)}
+
     </div>
   );
 }
-
