@@ -112,14 +112,8 @@ export default function HomePage() {
       {/* Header */}
       <header className="px-5 pt-6 pb-4 flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <div className="w-12 h-12 rounded-lg flex items-center justify-center bg-gradient-to-br from-[#7B2DB8] to-[#5A1B8A] text-white font-bold text-lg">
-            DC
-          </div>
           <div>
-            <h1 className="text-lg font-semibold text-[#3b1a66]">DoeCerto</h1>
-            <p className="text-base text-gray-500 -mt-0.5">
-              Ajude quem precisa
-            </p>
+             <Image src="/logo_roxa.svg" alt="DoeCerto" width={120} height={120} priority /> 
           </div>
         </div>
 

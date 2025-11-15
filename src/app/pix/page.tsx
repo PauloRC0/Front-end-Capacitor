@@ -137,7 +137,7 @@ export default function PixPage() {
 
       <button
         onClick={() => history.back()}
-        className="mt-8 text-purple-700 text-lg font-semibold underline active:scale-95"
+        className="mt-8 text-purple-700 text-lg font-semibold active:scale-95"
       >
         Voltar
       </button>

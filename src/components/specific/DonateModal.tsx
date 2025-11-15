@@ -16,7 +16,7 @@ export default function DonateModal({ onClose, onDonateMoney, onDonateItems }: P
 
       <div className="relative bg-white rounded-2xl shadow-xl w-[92%] max-w-sm p-5 z-10">
         <div className="flex flex-col items-center">
-          <div className="w-16 h-16 rounded-full bg-[#6B21A8] flex items-center justify-center text-white text-2xl shadow-lg">
+          <div className="w-16 h-16 rounded-full bg-purple-700 flex items-center justify-center text-white text-2xl shadow-lg">
             ❤
           </div>
 
@@ -27,7 +27,7 @@ export default function DonateModal({ onClose, onDonateMoney, onDonateItems }: P
           <div className="mt-5 w-full flex flex-col gap-3">
             <button
               onClick={onDonateMoney}
-              className="w-full py-3 rounded-xl text-white font-semibold bg-[#6B21A8] active:scale-95 transition"
+              className="w-full py-3 rounded-xl text-white font-semibold bg-purple-700 active:scale-95 transition"
             >
               Doar dinheiro
             </button>
@@ -42,9 +42,10 @@ export default function DonateModal({ onClose, onDonateMoney, onDonateItems }: P
 
           <button
             onClick={onClose}
-            className="mt-4 text-sm text-gray-500 underline"
-          >
-            Cancelar
+            
+            className="mt-4 text-base text-gray-500"
+          > Cancelar
+            
           </button>
         </div>
       </div>

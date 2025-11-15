@@ -59,13 +59,6 @@ export default function Donation({
   return (
     <div className="w-full max-w-md mx-auto">
       <div className="mb-6">
-        <button
-          type="button"
-          onClick={onCancel}
-          className="text-purple-600 font-medium"
-        >
-          ← Voltar
-        </button>
         <h1 className="text-2xl font-bold text-purple-700 mt-4">{`Doar Itens — ${ongName}`}</h1>
         <p className="text-sm text-gray-600 mt-1">
           Obrigado por ajudar! Preencha os dados abaixo.

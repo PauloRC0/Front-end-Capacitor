@@ -82,7 +82,7 @@ export default function OngPublicProfile({ ong }: Props) {
             animate={{ opacity: 1, y: 0 }}
             className="p-5 rounded-2xl bg-white shadow-md border border-gray-100"
           >
-            <h2 className="text-base font-semibold text-[#4a1d7a]">About</h2>
+            <h2 className="text-base font-semibold text-[#4a1d7a]">Sobre</h2>
             <p className="mt-3 text-lg leading-relaxed text-gray-700">
               {ong.description}
             </p>
@@ -97,7 +97,7 @@ export default function OngPublicProfile({ ong }: Props) {
               animate={{ opacity: 1, y: 0 }}
               className="p-5 rounded-2xl bg-white shadow-md border border-gray-100"
             >
-              <h3 className="text-base font-semibold text-[#4a1d7a]">Mission</h3>
+              <h3 className="text-base font-semibold text-[#4a1d7a]">Missão</h3>
               <p className="mt-2 text-lg text-gray-700">
                 {ong.mission || "—"}
               </p>
@@ -113,7 +113,7 @@ export default function OngPublicProfile({ ong }: Props) {
               <p className="mt-2 text-2xl font-bold text-gray-900">
                 {ong.impactedPeople ?? "—"}
               </p>
-              <p className="text-base text-gray-600">People impacted</p>
+              <p className="text-base text-gray-600">Pessoas Impactadas</p>
             </motion.div>
           </div>
 
@@ -123,19 +123,19 @@ export default function OngPublicProfile({ ong }: Props) {
             animate={{ opacity: 1, y: 0 }}
             className="p-5 rounded-2xl bg-white shadow-md border border-gray-100"
           >
-            <h3 className="text-base font-semibold text-[#4a1d7a]">Stats</h3>
+            <h3 className="text-base font-semibold text-[#4a1d7a]">Estatísticas</h3>
 
             <div className="mt-4 flex gap-4">
 
               <div className="flex-1 p-3 rounded-lg bg-gray-50 text-center border border-gray-200">
                 <Heart size={20} className="mx-auto text-pink-500" />
                 <p className="mt-2 text-lg font-bold">{ong.donations}</p>
-                <p className="text-base text-gray-600">Donations</p>
+                <p className="text-base text-gray-600">Doações</p>
               </div>
 
               <div className="flex-1 p-3 rounded-lg bg-gray-50 text-center border border-gray-200">
                 <p className="mt-2 text-lg font-bold">{ong.years}</p>
-                <p className="text-base text-gray-600">Years</p>
+                <p className="text-base text-gray-600">Anos</p>
               </div>
             </div>
           </motion.div>
@@ -152,7 +152,7 @@ export default function OngPublicProfile({ ong }: Props) {
           onClick={() => setIsModalOpen(true)}
           className="w-full py-4 rounded-2xl text-lg font-bold text-white bg-gradient-to-r from-pink-500 to-purple-600 shadow-xl"
         >
-          Donate to this ONG 💜
+          Doar para esta ONG 
         </button>
       </motion.div>
 
