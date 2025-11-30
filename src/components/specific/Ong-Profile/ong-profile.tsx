@@ -2,8 +2,15 @@
 
 import { MapPin, Award, Users, Heart } from "lucide-react";
 import { motion } from "framer-motion"
+import { useState } from "react";
+import { input, p } from "framer-motion/client";
 
 export default function OngProfilePage() {
+
+  const [descricao, setDescricao] = useState("");
+  const [textoSalvo, setTextoSalvo] = useState("");
+  const [editando, setEditando] = useState(false);
+
   return (
     <div className="min-h-screen bg-white text-gray-900 pb-32">
 
@@ -39,7 +46,26 @@ export default function OngProfilePage() {
           animate={{ opacity: 1, y: 0 }}
           className="p-5 rounded-2xl bg-white shadow-md border border-gray-100 mb-4">
             <h2 className="text-base font-semibold text-[#4a1d7a]">Sobre</h2>
-            <p className="mt-3 text-lg leading-relaxed text-gray-700">Description</p>
+            {editando ? (
+              <input value={descricao}
+              onChange={(e) => setDescricao(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  setTextoSalvo(descricao);
+                  setEditando(false);
+                }
+              }}
+              className="mt-3 w-full border rounded-lg p2"
+              />
+            ):(
+              <p className="mt-3 text-lg leading-relaxed text-gray-700 h-5" onClick={() => {
+                setDescricao(textoSalvo);
+                setEditando(true);
+              }}
+              >
+                {textoSalvo}
+              </p>
+            )}
           </motion.div>
 
           {/* Mission + Impact */}
