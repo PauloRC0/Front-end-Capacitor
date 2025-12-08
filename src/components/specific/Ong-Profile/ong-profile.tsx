@@ -8,18 +8,25 @@ export default function OngProfilePage() {
 
   {/* Imagem Perfil de ONG */}
   const [ongProfileImage, setOngProfileImage] = useState<File | null>(null);
-const [ongProfileImageURL, setOngProfileImageURL] = useState<string | null>(null);
+  const [ongProfileImageURL, setOngProfileImageURL] = useState<string | null>(null);
 
-function handleOngProfileImageChange(event: React.ChangeEvent<HTMLInputElement>) {
+  {/* Imagem Banner de ONG */}
+  const [bannerImage, setBannerImage] = useState<File | null>(null);
+  const [bannerImageURL, setBannerImageURL] = useState<string | null>(null);
+
+function handleImageChange(
+  event: React.ChangeEvent<HTMLInputElement>, 
+  setFile: (file: File | null) => void, 
+  setURL: (url: string | null) => void
+) {
   const file = event.target.files?.[0];
   if (!file) return;
 
-  setOngProfileImage(file);
-
-  const previewURL = URL.createObjectURL(file);
-  setOngProfileImageURL(previewURL);
+  setFile(file);
+  setURL(URL.createObjectURL(file));
 }
-  {/* Fim Imagem Perfil de ONG */}
+
+  {/* Fim Imagem */}
 
 
   const [descricao, setDescricao] = useState("");
@@ -38,17 +45,27 @@ function handleOngProfileImageChange(event: React.ChangeEvent<HTMLInputElement>)
 
       {/* Banner */}
       <div className="relative w-full h-[340px]">
+
+        <input
+        type="file"
+        accept="image/*"
+        className="absolute w-full h-[340px] object-cover object-top z-0"
+        onChange={(e) => handleImageChange(e, setBannerImage, setBannerImageURL)}
+        />
+
+        {bannerImageURL && (
         <img 
-        src={"#"} 
+        src={bannerImageURL} 
         alt="banner" 
-        className="absolute w-full h-full object-cover object-top z-0 bg-[#6b21a8]">
+        className="object-contain absolute w-full h-full object-cover object-top z-0">
         </img>
+        )}
 
        <input 
         type="file" 
         accept="image/*" 
         className="absolute -bottom-12 left-6 z-50 w-36 h-36 rounded-2xl overflow-hidden border-4 border-white"
-        onChange={handleOngProfileImageChange}
+        onChange={(e) => handleImageChange(e, setOngProfileImage, setOngProfileImageURL)}
       />
 
       {ongProfileImageURL && (
